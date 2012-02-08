@@ -1,0 +1,53 @@
+eal EXPR (이 위치에 있다면 EXPR 자체를 평가하여 eval을
+	넣게 된다. 어떤값이 들어가든 문자열(해쉬등)을 
+	평가하여 넣게 된다. "", '' 싸도 된다)
+EXPR 에서는 런타임 에서 잡아 낸다
+syntax 확인
+
+블럭 eval
+eval { say "hello world"; };
+실행 하기전에(컴파일 전에) 문법상 오류 잡힘
+
+EXPR eval
+eval 'say "Help world"';
+런타임 돌아 가기전까지는 모름
+
+perl -c eval.pl
+
+eval BLOCK (흔히 말하는 중괄호)
+
+두개의 차이점
+
+안전성은 블럭이 좋다 미리 잡아 주기때문에
+
+하지만 예외도 있다
+
+사용자가 입력을 했을대 그 값으로 동작을 바꾸려고 하는
+와중에 쓰임
+
+my $str = shift;
+eval $str;
+
+eval 의 오류 값은 $@값에 저장이 되고
+이것은 그 지점에서 { } 이 끝나기 때문에 단하나의
+에러만 존재한다
+그러므로 에러 메세지를 명확히 구분해주어야 한다.
+
+q  { } == ''
+qq { } == ""
+qr { } == EXPR
+
+eval 은
+Try::Tiny
+와 비슷 하다 JS 의
+try {
+	die "foo";
+} catch {
+	warn "caught error: $_";
+};
+세미 콜론이 들어간다 왜 들가지
+
+B::Deparse 가 뭐지
+
+Log::Log4perl
+출력을 자유롭게 하는것
